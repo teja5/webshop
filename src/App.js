@@ -1,23 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import Customer from './component/Customers';
+import Transaction from './component/Transaction';
+import Village from './component/Village';
+import VillageList from './component/VillageList';
+import VillageListItem from './component/VillageListItem';
+
+import { Link, Route } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Route path="/villages">
+        <VillageList></VillageList>
+      </Route>
+      {/* //Active NAVLinks */}
+      {/*Route Path  */}
+      <Link to='/villages'>VillageList </Link>
     </div>
   );
 }
