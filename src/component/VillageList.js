@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import VillageListItem from './VillageListItem';
+import { villageActions } from "../store/slice/villageSlice";
 
 const VillageList = () => {
+
 
     const [villageName, setVillageName] = useState('');
 
@@ -13,7 +15,8 @@ const VillageList = () => {
     }
 
     function searchClick() {
-        searchVillagesByName(villageName);
+        console.log(villageActions.getUsers.length)
+        // searchVillagesByName(villageName);
     }
 
 
@@ -24,7 +27,7 @@ const VillageList = () => {
             headers: { 'Content-Type': 'application/json' }
         }
 
-        var villageSearch = 'http://18.117.196.145:8080/shop/getVillageSearch?search=' + villageName + '&firstResult=0&max=15';
+        var villageSearch = 'http://3.135.1.238:8080/shop/getVillageSearch?search=' + villageName + '&firstResult=0&max=15';
         const response = await fetch(villageSearch, requestOptions);
 
         if (response.status === 500) {
@@ -46,7 +49,7 @@ const VillageList = () => {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         }
-        const response = await fetch('http://18.117.196.145:8080/shop/listVillage?firstResult=0&max=15', requestOptions);
+        const response = await fetch('http://3.135.1.238:8080/shop/listVillage?firstResult=0&max=15', requestOptions);
 
         if (response.status === 500) {
             // getVillages()
@@ -76,7 +79,7 @@ const VillageList = () => {
 
             <button onClick={searchClick}> Search</button>
 
-            <p>Village List  {listSize.length} </p>
+            <p>Village List  {listSize.length + " " + villageActions.getUsers.length} </p>
             <ul>
                 {listSize.map((item) => {
                     // return <VillageListItem ></VillageListItem>

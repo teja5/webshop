@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { villageActions } from "../store/slice/villageSlice";
+
 const Village = () => {
 
     // mySubmitHandler = (event) => {
@@ -20,6 +23,11 @@ const Village = () => {
         "name": name
     }
 
+
+
+    const villages = useSelector(state => state.village.village);
+
+    const dispatch = useDispatch();
 
     async function addVillage() {
 
@@ -44,13 +52,16 @@ const Village = () => {
 
     const handelKeyPress = e => {
         if (e.keyCode === 13) {
-            addVillage();
+            // addVillage();
         }
     }
 
     const onSubmitForm = event => {
         event.preventDefault();
-        addVillage();
+        // addVillage();
+        console.log(name);
+        dispatch(villageActions.addVillage(name))
+        setName('')
     }
 
     const onNameChangeListner = event => {
@@ -88,7 +99,6 @@ const Village = () => {
                 <br />
                 <button type='submit' > Submit</button>
             </form>
-
         </div>
     )
 }

@@ -1,11 +1,25 @@
+import { Link, Route } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 import classes from './home.module.css';
+import VillageList from './VillageList';
 
+let history;
 const Home = () => {
+
+    history = useHistory();
+
     return (
-        <div className={classes.home}>
+
+        <div >
             <h1>
                 Hello
             </h1>
+
+            <Route>
+                <VillageList></VillageList>
+                <Link to='/villageList'>VillageList </Link>
+            </Route>
+
             <h2>
                 {new Date().toLocaleTimeString()}
             </h2>
@@ -27,6 +41,14 @@ function tick() {
     //     <h1>Hello, world!</h1>
     //     <h2>It is {new Date().toLocaleTimeString()}.</h2>
     // </div>
+
+    history.push("/transactions")
+    // const history = useHistory();
+
+    // history.push("/transactions")
+
+    // <Link to="/transactions">Home</Link>
     console.log('Clicked' + new Date().toLocaleTimeString())
+
 }
 export default Home;

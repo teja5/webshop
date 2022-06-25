@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useHistory } from "react-router";
 
 const Transaction = () => {
+
+    let history = useHistory();
 
     const [customer, setCustomer] = useState('');
     const [date, setDate] = useState('');
@@ -23,7 +26,9 @@ const Transaction = () => {
 
     const onSubmitForm = event => {
         event.preventDefault();
+        history.goBack();
 
+        // Router.History.back();
         //TODO Add data to theserver
     }
 
