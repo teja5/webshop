@@ -3,6 +3,15 @@ import { useHistory } from "react-router";
 
 const Transaction = () => {
 
+    // "transaction_id": 0,
+    // "amount":"90",
+    // "customer":{"customer_id":1,"name":"teja"},
+    // "type":1,
+    // "notes":"notes",
+    // "created_date":"teja",
+    // "modified_date":"teja",
+    // "active":true
+
     let history = useHistory();
 
     const [customer, setCustomer] = useState('');

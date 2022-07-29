@@ -17,6 +17,7 @@ const VillageList = () => {
     function searchClick() {
         console.log(villageActions.getUsers.length)
         // searchVillagesByName(villageName);
+        getVillages()
     }
 
 
@@ -49,7 +50,7 @@ const VillageList = () => {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         }
-        const response = await fetch('http://3.135.1.238:8080/shop/listVillage?firstResult=0&max=15', requestOptions);
+        const response = await fetch('http://localhost:8080/shop/listVillage?firstResult=0&max=5', requestOptions);
 
         if (response.status === 500) {
             // getVillages()

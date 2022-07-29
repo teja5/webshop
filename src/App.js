@@ -1,5 +1,5 @@
 import './App.css';
-import Customer from './component/Customers';
+import Customer from './component/Customer';
 import Transaction from './component/Transaction';
 import Village from './component/Village';
 import VillageList from './component/VillageList';
@@ -8,6 +8,8 @@ import CounterS from './component/Counter';
 
 import { Link, Route, Switch, Redirect } from 'react-router-dom';
 import Home from './component/Home';
+import TransactionList from './component/transaction/TransactionList';
+import CustomerList from './component/customer/CustomerList';
 
 function App() {
 
@@ -29,17 +31,24 @@ function App() {
         <Route path='/villagesList'>
           <VillageList></VillageList>
         </Route>
+        <Route path='/customer'>
+          <Customer></Customer>
+        </Route>
         <Route path='/transactions'>
           <Transaction></Transaction>
+        </Route>
+        <Route path='/transactionList'>
+          <TransactionList></TransactionList>
+        </Route>
+        <Route path='/customerList'>
+          <CustomerList></CustomerList>
         </Route>
 
         <Route path='*'>
           <Home></Home>
         </Route>
 
-        <Route path='/customer'>
-          <Customer></Customer>
-        </Route>
+
         {/* //Active NAVLinks */}
         {/*Route Path  */}
 
