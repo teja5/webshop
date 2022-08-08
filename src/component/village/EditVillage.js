@@ -1,38 +1,47 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { villageActions } from "../store/slice/villageSlice";
+import { useHistory, useLocation } from "react-router-dom";
+// import { villageActions } from ".../store/slice/villageSlice";
 
-const Village = () => {
+let history;
 
-    // mySubmitHandler = (event) => {
-    //     event.preventDefault();
-    //     // let age = this.state.age;
-    //     // if (!Number(age)) {
-    //     //   alert("Your age must be a number");
-    //     // }
+const EditVillage = (params) => {
+
+
+    const location = useLocation();
+
+    // constructor(props){
+    //     super(props)
+
+    // Set initial stat 
+    // this.state = {
+    //     greeting:
+    //         'Click the button to receive greetings'
     // }
 
-    const [name, setName] = useState('');
+    // Binding this keyword 
+    // this.updateState = this.updateState.bind(this)
+    // }
+
+    const [name, setName] = useState(location.state.names);
 
     // const [age, setAge] = useState('');
 
     // const [selection, setSelection] = useState('');
 
+    history = useHistory();
+
     var requetJson = {
-        "village_id": 0,
+        "village_id": 2,
         "name": name
     }
 
-
-
-    const villages = useSelector(state => state.village.village);
-
     const dispatch = useDispatch();
 
-    async function addVillage() {
+    async function editVillage() {
 
         const requestOptions = {
-            method: 'POST',
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
 
             body: JSON.stringify(requetJson)
@@ -48,8 +57,8 @@ const Village = () => {
             // await (data) => {
             // setName(JSON.parse(data.village).village_id + " " + JSON.parse(data.village).name + "  " + data.status)
             // };    
-            dispatch(villageActions.addVillage(name))
-            setName('');
+            // dispatch(villageActions.addVillage(name))
+            history.goBack()
         } else {
             console.log('Something went wrong')
         }
@@ -63,7 +72,7 @@ const Village = () => {
 
     const onSubmitForm = event => {
         event.preventDefault();
-        addVillage();
+        editVillage();
         console.log(name);
         // dispatch(villageActions.addVillage(name))
         // setName('')
@@ -77,10 +86,18 @@ const Village = () => {
     //     setSelection(event.target.value);
     // }
 
+    // setName('ok')
+
+    console.log(name);
+    console.log(location.state.names)
+
     return (
+
+
+
         <div>
             <form onSubmit={onSubmitForm} >
-                <h1>Add Village </h1>
+                <h1>Edit Village </h1>
                 <p>Enter Name:</p>
                 <p>{name}</p>
                 <input
@@ -108,4 +125,4 @@ const Village = () => {
         </div>
     )
 }
-export default Village;
+export default EditVillage;

@@ -10,6 +10,7 @@ import { Link, Route, Switch, Redirect } from 'react-router-dom';
 import Home from './component/Home';
 import TransactionList from './component/transaction/TransactionList';
 import CustomerList from './component/customer/CustomerList';
+import EditVillage from './component/village/EditVillage';
 
 function App() {
 
@@ -27,6 +28,9 @@ function App() {
         </Route> */}
         <Route path="/villages">
           <Village></Village>
+        </Route>
+        <Route path="/editVillage">
+          <EditVillage></EditVillage>
         </Route>
         <Route path='/villagesList'>
           <VillageList></VillageList>

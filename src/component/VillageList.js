@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import VillageListItem from './VillageListItem';
+import { useHistory } from 'react-router-dom';
 import { villageActions } from "../store/slice/villageSlice";
 
+let history;
 const VillageList = () => {
 
+    history = useHistory();
 
     const [villageName, setVillageName] = useState('');
 
@@ -28,7 +31,7 @@ const VillageList = () => {
             headers: { 'Content-Type': 'application/json' }
         }
 
-        var villageSearch = 'http://3.135.1.238:8080/shop/getVillageSearch?search=' + villageName + '&firstResult=0&max=15';
+        var villageSearch = 'http://184.72.6.13:8080/shop/getVillageSearch?search=' + villageName + '&firstResult=0&max=50';
         const response = await fetch(villageSearch, requestOptions);
 
         if (response.status === 500) {
@@ -46,11 +49,12 @@ const VillageList = () => {
 
     async function getVillages() {
 
+        console.log('called')
         const requestOptions = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' }
         }
-        const response = await fetch('http://localhost:8080/shop/listVillage?firstResult=0&max=5', requestOptions);
+        const response = await fetch('http://184.72.6.13:8080/shop/listVillage?firstResult=0&max=50', requestOptions);
 
         if (response.status === 500) {
             // getVillages()
@@ -60,12 +64,44 @@ const VillageList = () => {
             const data = await response.json();
             setListSize(data.villageList)
         }
+    }
+
+    async function deleteVillage(village_id) {
+
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        }
+        const response = await fetch('http://184.72.6.13:8080/shop/deleteVillage?village_id=' + village_id, requestOptions);
+
+        if (response.ok) {
+            getVillages()
+        } else {
+            console.log("List Not Retrieved");
+        }
+    }
+
+    // function deleteVillage(village_id) {
+
+    //     //{{baseUrl}}/deleteVillage?village_id=4
+
+    //     deleteVillage(village_id)
+
+    // }
+
+    function editVillage(village_id, name) {
+        console.log(village_id + 'Edit');
+
+        history.push({
+            pathname: "/editVillage",
+            state: { names: name }
+        })
 
     }
 
-    // useEffect(() => {
-    //     getVillages()
-    // })
+    useEffect(() => {
+        getVillages()
+    })
 
     return (
         < div >
@@ -84,7 +120,7 @@ const VillageList = () => {
             <ul>
                 {listSize.map((item) => {
                     // return <VillageListItem ></VillageListItem>
-                    return <VillageListItem key={item.village_id} name={item.name} village_id={item.village_id}></VillageListItem>
+                    return <VillageListItem key={item.village_id} name={item.name} village_id={item.village_id} onVillageDelete={() => { deleteVillage(item.village_id) }} onVillageEdit={() => { editVillage(item.village_id, item.name) }}></VillageListItem>
                 })}
             </ul>
         </div >
