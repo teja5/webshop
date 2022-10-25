@@ -34,11 +34,54 @@ const Transaction = () => {
     }
 
     const onSubmitForm = event => {
-        event.preventDefault();
-        history.goBack();
+
+
+        addTransaction();
+        // event.preventDefault();
+        // history.goBack();
 
         // Router.History.back();
         //TODO Add data to theserver
+    }
+
+    var requetJson = {
+        "transaction_id": 0,
+        "amount": billAmount,
+        "customer": { "customer_id": 1, "name": "teja" },
+        "type": 1,
+        "notes": notes,
+        "created_date": date,
+        // "modified_date": modified_date,
+        "active": true
+    }
+
+    async function addTransaction() {
+
+        console.log(requetJson.customer_id)
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+
+            body: JSON.stringify(requetJson)
+            // body: JSON.stringify({
+            //     village_id: 0,
+            //     name: name
+            // })
+        }
+
+        const response = await fetch('http://184.72.6.13:8080/shop/addTransaction', requestOptions);
+        if (response.ok) {
+            const data = await response.json();
+            console.log(data)
+            // await (data) => {
+            // setName(JSON.parse(data.village).village_id + " " + JSON.parse(data.village).name + "  " + data.status)
+            // };    
+            // dispatch(villageActions.addVillage(name))
+            // setName('');
+        } else {
+            console.log('Something went wrong')
+        }
     }
 
     return (<div>

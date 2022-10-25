@@ -99,9 +99,9 @@ const VillageList = () => {
 
     }
 
-    useEffect(() => {
-        getVillages()
-    })
+    // useEffect(() => {
+    //     getVillages()
+    // })
 
     return (
         < div >

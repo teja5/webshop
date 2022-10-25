@@ -42,8 +42,8 @@ const Customer = () => {
     })
 
     const onSubmitForm = event => {
-        event.preventDefault();
-
+        // event.preventDefault();
+        addCustomer();
         //TODO Add data to theserver
     }
 
@@ -75,11 +75,60 @@ const Customer = () => {
         setVillage(event.target.value);
     }
 
+    const getVilla = {
+        getVillages();
+    }
+
+    const getData =() => {
+        console.log(requetJson)
+    }
+
+    var requetJson = {
+        "customer_id": 0,
+        "name": name,
+        "village": village,
+        "phone": phone,
+        "alt_phone": altPhone,
+        "reference": reference,
+        "address": address,
+        "location": location,
+        "active": true
+    }
+
+    async function addCustomer() {
+
+        console.log(requetJson.customer_id)
+
+        // const requestOptions = {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+
+        //     body: JSON.stringify(requetJson)
+        //     // body: JSON.stringify({
+        //     //     village_id: 0,
+        //     //     name: name
+        //     // })
+        // }
+        // const response = await fetch('http://184.72.6.13:8080/shop/addCustomer', requestOptions);
+        // if (response.ok) {
+        //     const data = await response.json();
+        //     console.log(JSON.parse(data.village).village_id + " " + JSON.parse(data.village).name)
+        //     // await (data) => {
+        //     // setName(JSON.parse(data.village).village_id + " " + JSON.parse(data.village).name + "  " + data.status)
+        //     // };    
+        //     // dispatch(villageActions.addVillage(name))
+        //     // setName('');
+        // } else {
+        //     console.log('Something went wrong')
+        // }
+    }
 
     return (
         <div>
-            <h1>Add Customer</h1>
-            <form onSubmit={onSubmitForm}>
+            <h1>Add Customer 1</h1>
+            <button onClick={getVilla}>Get Village</button>
+            <button onClick={getData}>Get DAta</button>
+            <form >
                 <p>Enter Name:</p>
                 <input
                     onChange={onNameChangeListner}
@@ -132,7 +181,7 @@ const Customer = () => {
                     ))}
                 </select>
                 <br></br>
-                <button type='submit' > Submit</button>
+                <button onClick={onSubmitForm} > Submit</button>
             </form>
         </div>
 
