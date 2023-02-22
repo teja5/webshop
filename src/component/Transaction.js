@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useHistory } from "react-router";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
 const Transaction = () => {
 
@@ -19,6 +20,54 @@ const Transaction = () => {
     const [billAmount, setBillAmount] = useState('');
     const [receivedAmount, setReceivedAmount] = useState('');
     const [notes, setNotes] = useState('');
+
+    const [customers, setCustomers] = useState([]);
+
+    const handleOnSelect = (item) => {
+        // the item selected
+        console.log(item)
+        let customerItem = { customer_id: item.customer_id, name: item.name }
+        setCustomer(customerItem)
+        // console.log(villageItem)
+        // console.log(villageItem.village_id + " " + villageItem.name)
+    }
+
+    const handleOnSearch = (string, results) => {
+        // onSearch will have as the first callback parameter
+        // the string searched and for the second the results.
+        console.log(string, results)
+        // setVillage
+    }
+
+    async function getCustomers() {
+
+        const requestOptions = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' }
+        }
+        const response = await fetch('http://184.72.6.13:8080/shop/listCustomer?firstResult=0&max=50', requestOptions);
+
+        if (response.status === 500) {
+
+            // getVillages()
+            console.log("List Not Retrieved");
+
+        } else {
+            const data = await response.json();
+            setCustomers(data.customerList)
+            console.log(customers.length)
+        }
+    }
+
+
+    const formatResult = (item) => {
+        return (
+            <>
+                <span style={{ display: 'block', textAlign: 'left' }}>id: {item.customer_id}</span>
+                <span style={{ display: 'block', textAlign: 'left' }}>name: {item.name}</span>
+            </>
+        )
+    }
 
     const onDateChangeListner = event => {
         setDate(event.target.value);
@@ -84,15 +133,30 @@ const Transaction = () => {
         }
     }
 
+    const getCustomersList = () => {
+        getCustomers();
+    }
+
+    const addTranData = () => {
+        addTransaction();
+    }
+
     return (<div>
+        <button onClick={getCustomersList}>Get Customers</button>
+        <button onClick={addTranData}>Add Customer</button>
+
         <form onSubmit={onSubmitForm}>
             <h1>Add Transaction</h1>
             <p>Customer:</p>
-            <input
-                type='text'
-                name='customerName'
-                readOnly
-            />
+            <div style={{ width: 400 }}>
+                <ReactSearchAutocomplete
+                    items={customers}
+                    onSearch={handleOnSearch}
+                    onSelect={handleOnSelect}
+                    autoFocus
+                    formatResult={formatResult}
+                />
+            </div>
             <br></br>
             <p>Enter Date:</p>
             <input
