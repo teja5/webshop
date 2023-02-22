@@ -107,7 +107,8 @@ const Customer = () => {
 
     const onSubmitForm = event => {
 
-        console.log(name + ' ' + village + ' ' + phone + ' ' + altPhone + ' ' + reference + ' ' + address + ' ' + location)
+        console.log(name + ' ' + village.village_id + ' ' + village.name + ' ' + phone + ' ' + altPhone + ' ' + reference + ' ' + address + ' ' + location)
+        addCustomer()
     }
 
 
@@ -138,7 +139,7 @@ const Customer = () => {
             //     name: name
             // })
         }
-        
+
         const response = await fetch('http://184.72.6.13:8080/shop/addCustomer', requestOptions);
         if (response.ok) {
             const data = await response.json();

@@ -12,6 +12,7 @@ import TransactionList from './component/transaction/TransactionList';
 import CustomerList from './component/customer/CustomerList';
 import EditVillage from './component/village/EditVillage';
 import ListComp from './component/ListComp';
+import Villages from './component/village/Villages';
 
 function App() {
 
@@ -35,6 +36,9 @@ function App() {
         </Route>
         <Route path='/villagesList'>
           <VillageList></VillageList>
+        </Route>
+        <Route path='/villagesListNew'>
+          <Villages></Villages>
         </Route>
         <Route path='/customer'>
           <Customer></Customer>
