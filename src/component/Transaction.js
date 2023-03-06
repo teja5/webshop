@@ -96,7 +96,7 @@ const Transaction = () => {
     var requetJson = {
         "transaction_id": 0,
         "amount": billAmount,
-        "customer": { "customer_id": 1, "name": "teja" },
+        "customer": { "customer_id": customer.customer_id, "name": customer.name },
         "type": 1,
         "notes": notes,
         "created_date": date,
